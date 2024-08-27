@@ -16,6 +16,9 @@
     /* 背景模糊 */
     padding: 3px;
     /* 导航栏内边距 */
+    position: sticky;
+    position: -webkit-sticky; 
+    top: 10px;    
 }
 
 .daohang ul {
