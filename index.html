@@ -4,42 +4,62 @@
 <head>
   <title>子秋博客</title>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="./stylesheets/ziqiu.css">
-  <link rel="stylesheet" href="./stylesheets/font.css">
-  <link rel="shortcut icon" href="images/ZiQiu.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="./css/ziqiu.css">
+  <link rel="stylesheet" href="./css/font.css">
+  <link rel="shortcut icon" href="赛博.jpg" type="image/x-icon">
 </head>
 
 <body>
-  <div class="daohang">
-    <ul>
-      <li><a class="active" href="#home">首页</a></li>
-      <li><a href="jieshao.html">介绍</a></li>
-      <li><a href="text.html">文章</a></li>
-      <li><a href="#about">我的vlog</a></li>
-      <li><a href="#talk">留言&聊天</a></li>
-    </ul>
-  </div>
-<div class="wenzhang">
-    <p>&nbsp &nbsp精选文章1</p>
-  <b><p class="huan">咦？2024巴黎奥运会担任乒乓女子组总决赛金牌银牌都是中国？</p></b>
-  <p class="jie">北京时间8月3日，在2024巴黎奥运会单人乒乓女子组总决赛，陈梦和孙颖莎二人都进入了总决赛，在最后两人对打后，比赛结果出来了，是......</p>
-  <div class="qianbei">
-  <div class="qian">
-        <a href="2024ppduog.html" style="text-decoration: none; color: #0056b3;">→前去查看！</a>
-    </div>
+    <div class="daohang">
+        <ul>
+          <li><a class="active" href="#home">首页</a></li>
+          <li><a href="jieshao.html">介绍</a></li>
+          <li><a href="text.html">文章</a></li>
+          <li><a href="#about">我的vlog</a></li>
+          <li><a href="#talk">留言&聊天</a></li>
+        </ul>
+      </div>
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+      <span class="close">&times;</span>
+      <div class="cl">
+        <p>子秋博客2.0版本发布通知</p>
+      </div>
+
+        <br/>各位科技爱好者：
+        
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您好！欢迎来到子秋博客，这里是科技的海洋，也是知识的殿堂。今天，2025年4月12日，我们带着全新的2.0版本与您见面啦！2.0版本的子秋博客，是一次科技与创新的飞跃。我们采用了最新的前端技术，打造了一个更加直观、流畅的阅读体验。全新的界面设计，简洁而不失科技感，让信息的呈现更加清晰。文章的排版经过精心优化，无论是代码展示还是图表解析，都能一目了然。我们引入了智能搜索功能，只需输入关键词，就能快速定位到您感兴趣的内容。同时，新增的可视化数据展示模块，将复杂的科技数据转化为直观的图表，帮助您更好地理解技术趋势和行业动态。在内容方面，我们不仅会持续更新前沿科技资讯，还会增加更多深度技术分析和实战案例分享。无论是人工智能、大数据，还是区块链、物联网，您都能在这里找到最新的研究成果和应用场景。我们深知，一个好的博客离不开每一位读者的支持。您的每一次访问、每一次点赞、每一次评论，都是我们前进的动力。如果您有任何建议或想法，欢迎随时与我们交流，让我们共同打造一个更加精彩的科技世界。再次感谢您的到来，让我们一起在子秋博客2.0版本中，探索科技的无限可能！
+        <div class="last">
+          子秋博客团队
+        
+          <br/>2025年4月12日</p>
+        </div> 
   </div>
 </div>
-<div class="wenzhang1">
-    <p>&nbsp &nbsp精选文章-2</p>
-    <b><p class="huan">今天，是您的节日！老师！</p></b>
-    <p class="jie">今天，是9月10日星期二，一个看起来平平无奇的工作日，背后却藏着一个节日......</p>
-    <div class="qianbei">
-      <div class="qian">
-        <a href="teacher.html" style="text-decoration: none; color: #0056b3;">→前去查看！</a>
-      </div>
-    </div>
-  </div>
- 
+
+<script>
+
+  var modal = document.getElementById("myModal");
+  var closeBtn = document.getElementsByClassName("close")[0];
+
+
+  window.onload = function() {
+      modal.style.display = "block";
+  };
+
+  closeBtn.onclick = function() {
+      modal.style.display = "none";
+  };
+
+
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  };
+</script>
+  
 </body>
 
 </html>
