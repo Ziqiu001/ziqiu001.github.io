@@ -5,7 +5,7 @@
     background: linear-gradient(to right bottom, #99F8FF 5%, #FCF143 75%);
 }
 
- .daohang {
+  .daohang {
    background-color: #fff6;
      /* 导航栏半透明白色背景 */
    border-radius: 18px;
