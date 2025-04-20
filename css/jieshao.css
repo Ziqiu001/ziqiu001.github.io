@@ -1,11 +1,11 @@
 ﻿body {
-    /* background-color: #f0f0f0; 页面背景为浅灰色 */
     font-family: HarmonyOS_Sans_SC_Medium, "微软雅黑", Arial, sans-serif;
-    height: 100vh;
-    background: linear-gradient(to right bottom, #99F8FF 5%, #FCF143 75%);
-}
-
-  .daohang {
+     height: 100vh;
+     background: linear-gradient(to right bottom, #edac34 5%, #dc5010 75%);
+ }
+ 
+ 
+ .daohang {
    background-color: #fff6;
      /* 导航栏半透明白色背景 */
    border-radius: 18px;
