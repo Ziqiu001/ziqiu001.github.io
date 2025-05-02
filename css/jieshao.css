@@ -23,7 +23,7 @@ body {
    margin: 0;
    padding: 0;
    overflow: hidden;
-   
+   border-radius: 25px;
  }
  
  .daohang li {
@@ -37,11 +37,10 @@ body {
    text-align: center;
    padding: 14px 16px;
    text-decoration: none;
-   
+   position: relative;
    /* 为了下划线动画效果 */
    transition: color 0.3s, font-size 0.3s;
    /* 平滑过渡文字颜色和字体大小 */
-   border-radius: 25px;
  }
  
  .daohang li a:hover {
@@ -71,8 +70,8 @@ body {
  
  .daohang .active {
    font-weight: bold;
-   left: 2px;
+   left: 8px;
  }
 
 
- 
+
