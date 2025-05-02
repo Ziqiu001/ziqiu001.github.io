@@ -70,6 +70,8 @@ body {
  
  .daohang .active {
    font-weight: bold;
+ }
+ .daohang .as {
    left: 8px;
  }
 
