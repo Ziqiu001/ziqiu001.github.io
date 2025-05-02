@@ -9,7 +9,7 @@ body {
      /* 导航栏半透明白色背景 */
    border-radius: 18px;
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  /* 微弱阴影增加深度感 */
+  /* 微弱阴影增深度感 */
      backdrop-filter: blur(15px);
      -webkit-backdrop-filter: blur(15px);
      /* 背景模糊 */
