@@ -1,4 +1,4 @@
-﻿body {
+body {
     font-family: HarmonyOS_Sans_SC_Medium, "微软雅黑", Arial, sans-serif;
      height: 100vh;
      background: linear-gradient(to right bottom, #edac34 5%, #dc5010 75%);
@@ -15,7 +15,7 @@
      -webkit-backdrop-filter: blur(15px);
      /* 背景模糊 */
      padding: 4px;
-
+     /* 导航栏内边距 */
  }
  
  .daohang ul {
@@ -45,6 +45,7 @@
  
  .daohang li a:hover {
    color: #dc5010;
+   /* 悬停时文字颜色变为深蓝色 */
  }
  
  .daohang li a::after {
@@ -54,6 +55,7 @@
    left: 16xp;
    bottom: 0;
    height: 3px;
+   /* 下划线高度 */
    width: 100%;
    background-color: #dc5010;
    transform: scaleX(0);
@@ -66,7 +68,13 @@
    transform: scaleX(0.5);
  }
  
- .daohang .active {
+ .daohang .tntnn {
    font-weight: bold;
+ }
+ .daohang .home {
    left: 8px;
  }
+
+
+
+
