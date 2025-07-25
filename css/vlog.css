@@ -119,3 +119,8 @@
    font-weight: bold;
    left: 8px;
  }
+
+ .lanl{
+  background-color: rgba(0, 152, 50, 0.7); /* 70%的不透明度 */
+  border-radius: 10px;
+ }
