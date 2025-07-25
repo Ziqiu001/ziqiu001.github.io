@@ -1,4 +1,4 @@
-body {
+﻿body {
     font-family: HarmonyOS_Sans_SC_Medium, "微软雅黑", Arial, sans-serif;
      height: 100vh;
      background: linear-gradient(to right bottom, #edac34 5%, #dc5010 75%);
@@ -15,7 +15,7 @@ body {
      -webkit-backdrop-filter: blur(15px);
      /* 背景模糊 */
      padding: 4px;
-     /* 导航栏内边距 */
+
  }
  
  .daohang ul {
@@ -45,7 +45,6 @@ body {
  
  .daohang li a:hover {
    color: #dc5010;
-   /* 悬停时文字颜色变为深蓝色 */
  }
  
  .daohang li a::after {
@@ -55,7 +54,6 @@ body {
    left: 16xp;
    bottom: 0;
    height: 3px;
-   /* 下划线高度 */
    width: 100%;
    background-color: #dc5010;
    transform: scaleX(0);
@@ -72,60 +70,3 @@ body {
    font-weight: bold;
    left: 8px;
  }
-
-
-
-.modal {
-  display: none; 
-  position: fixed;
-  z-index: 1000; /* 确保弹窗在最上层 */
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-}
-
-/* 弹窗内容的样式 */
-.modal-content {
-  background-color: rgba(255, 255, 255, 0.9); 
-  margin: 15% auto;
-  padding: 20px;
-  border-radius: 15px; 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
-  width: 80%;
-  max-width: 500px;
-  .last{
-     text-align: end;
-  }
-  .cl{
-    text-align: center;
-  }
-}
-
-/* 关闭按钮的样式 */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
- 
-
-
-
-
-
-
-
-
-
