@@ -348,6 +348,11 @@
             outline: none;
         }
 
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
         .form-input:focus,
         .form-select:focus,
         .form-textarea:focus {
@@ -410,6 +415,12 @@
             box-shadow: 0 8px 25px var(--owner-glow);
         }
 
+        .publish-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* 登录提示 */
         .login-prompt {
             text-align: center;
@@ -450,18 +461,30 @@
             box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6);
         }
 
-        /* 分类标签 */
-        .category-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
+        /* 分类标签区域 */
+        .category-section {
             margin-bottom: 40px;
-            flex-wrap: wrap;
             animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
-        .tab-btn {
-            padding: 10px 20px;
+        .category-title {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        /* 主分类 */
+        .main-categories {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 12px 24px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 25px;
@@ -471,14 +494,53 @@
             cursor: pointer;
             transition: var(--transition);
             backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .tab-btn:hover,
-        .tab-btn.active {
+        .category-btn:hover,
+        .category-btn.active {
             background: rgba(99, 102, 241, 0.2);
             border-color: rgba(99, 102, 241, 0.5);
             color: var(--text-primary);
             transform: translateY(-2px);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        /* 子分类 */
+        .sub-categories {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sub-category-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sub-category-btn:hover,
+        .sub-category-btn.active {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: var(--text-primary);
         }
 
         /* 文章网格 */
@@ -511,7 +573,6 @@
         .article-cover {
             width: 100%;
             height: 200px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.3));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -690,6 +751,29 @@
         .modal-close:hover {
             background: rgba(239, 68, 68, 0.3);
             transform: rotate(90deg);
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 20px;
+            right: 70px;
+            padding: 8px 16px;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            color: #fca5a5;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: none;
+        }
+
+        .delete-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        .modal-content.owner-view .delete-btn {
+            display: block;
         }
 
         .article-full {
@@ -925,36 +1009,14 @@
             color: var(--text-secondary);
         }
 
-        /* 删除按钮（仅博主可见） */
-        .delete-btn {
-            position: absolute;
-            top: 20px;
-            right: 70px;
-            padding: 8px 16px;
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: 8px;
-            color: #fca5a5;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: none;
-        }
-
-        .delete-btn:hover {
-            background: rgba(239, 68, 68, 0.3);
-        }
-
-        .modal-content.owner-view .delete-btn {
-            display: block;
-        }
-
         /* 响应式 */
         @media (max-width: 968px) {
             .blog-title { font-size: 2.5rem; }
             .articles-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
             .editor-row { grid-template-columns: 1fr; }
             .comment-input-row { grid-template-columns: 1fr; }
+            .main-categories { gap: 8px; }
+            .category-btn { padding: 10px 16px; font-size: 0.8rem; }
         }
 
         @media (max-width: 768px) {
@@ -980,6 +1042,8 @@
             .articles-grid { grid-template-columns: 1fr; }
             .article-full { padding: 24px; }
             .article-full-title { font-size: 1.5rem; }
+            .sub-categories { padding: 12px; }
+            .sub-category-btn { padding: 6px 12px; font-size: 0.75rem; }
         }
 
         /* 滚动条 */
@@ -1000,7 +1064,6 @@
             border-radius: 12px;
             color: var(--text-primary);
             font-weight: 500;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             opacity: 0;
             transition: all 0.3s;
             z-index: 3000;
@@ -1038,7 +1101,7 @@
             <li><a href="jieshao.html" class="nav-link">介绍</a></li>
             <li><a href="text.html" class="nav-link active">文章</a></li>
             <li><a href="vlog.html" class="nav-link">Vlog</a></li>
-            <li><a href="liuyan.html" class="nav-link">留言</a></li>
+            <li><a href="test.html" class="nav-link">留言</a></li>
         </ul>
         <div class="hamburger">
             <span class="bar"></span>
@@ -1080,14 +1143,24 @@
                         <input type="text" class="form-input" id="articleTitle" placeholder="输入文章标题..." required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">分类</label>
-                        <select class="form-select" id="articleCategory">
-                            <option value="tech">前端技术</option>
-                            <option value="programming">编程学习</option>
-                            <option value="project">项目实战</option>
-                            <option value="life">生活随笔</option>
+                        <label class="form-label">主分类</label>
+                        <select class="form-select" id="articleMainCategory" onchange="updateSubCategories()">
+                            <option value="tech">💻 技术编程</option>
+                            <option value="study">📚 学习成长</option>
+                            <option value="life">🌟 生活随笔</option>
+                            <option value="project">🚀 项目实战</option>
+                            <option value="resource">🎁 资源分享</option>
+                            <option value="thought">💭 思考感悟</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label class="form-label">子分类</label>
+                        <select class="form-select" id="articleSubCategory">
+                            <!-- 动态生成 -->
+                        </select>
+                    </div>
+                </div>
+                <div class="editor-row">
                     <div class="form-group">
                         <label class="form-label">阅读时间</label>
                         <select class="form-select" id="readTime">
@@ -1096,7 +1169,20 @@
                             <option value="8">8分钟</option>
                             <option value="10">10分钟</option>
                             <option value="15">15分钟</option>
+                            <option value="20">20分钟+</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">难度等级</label>
+                        <select class="form-select" id="difficulty">
+                            <option value="beginner">🌱 入门</option>
+                            <option value="intermediate">🌿 进阶</option>
+                            <option value="advanced">🌳 高级</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">标签（用逗号分隔）</label>
+                        <input type="text" class="form-input" id="articleTags" placeholder="例如: JavaScript, CSS, 教程">
                     </div>
                 </div>
                 <div class="editor-toolbar">
@@ -1106,6 +1192,8 @@
                     <button type="button" class="tool-btn" onclick="insertText('```\n', '\n```')">代码块</button>
                     <button type="button" class="tool-btn" onclick="insertText('- ', '')">列表</button>
                     <button type="button" class="tool-btn" onclick="insertText('> ', '')">引用</button>
+                    <button type="button" class="tool-btn" onclick="insertText('![图片描述](', ')')">图片</button>
+                    <button type="button" class="tool-btn" onclick="insertText('[链接文字](', ')')">链接</button>
                 </div>
                 <div class="form-group">
                     <textarea class="form-textarea" id="articleContent" placeholder="在此输入文章内容...
@@ -1123,13 +1211,42 @@
             </form>
         </div>
 
-        <!-- 分类标签 -->
-        <div class="category-tabs">
-            <button class="tab-btn active" onclick="filterArticles('all')">全部文章</button>
-            <button class="tab-btn" onclick="filterArticles('tech')">前端技术</button>
-            <button class="tab-btn" onclick="filterArticles('programming')">编程学习</button>
-            <button class="tab-btn" onclick="filterArticles('project')">项目实战</button>
-            <button class="tab-btn" onclick="filterArticles('life')">生活随笔</button>
+        <!-- 分类筛选区域 -->
+        <div class="category-section">
+            <p class="category-title">选择分类浏览文章</p>
+            <div class="main-categories">
+                <button class="category-btn active" onclick="filterByMain('all')">
+                    <span>📂</span>
+                    <span>全部文章</span>
+                </button>
+                <button class="category-btn" onclick="filterByMain('tech')">
+                    <span>💻</span>
+                    <span>技术编程</span>
+                </button>
+                <button class="category-btn" onclick="filterByMain('study')">
+                    <span>📚</span>
+                    <span>学习成长</span>
+                </button>
+                <button class="category-btn" onclick="filterByMain('life')">
+                    <span>🌟</span>
+                    <span>生活随笔</span>
+                </button>
+                <button class="category-btn" onclick="filterByMain('project')">
+                    <span>🚀</span>
+                    <span>项目实战</span>
+                </button>
+                <button class="category-btn" onclick="filterByMain('resource')">
+                    <span>🎁</span>
+                    <span>资源分享</span>
+                </button>
+                <button class="category-btn" onclick="filterByMain('thought')">
+                    <span>💭</span>
+                    <span>思考感悟</span>
+                </button>
+            </div>
+            <div class="sub-categories" id="subCategories">
+                <!-- 动态生成子分类 -->
+            </div>
         </div>
 
         <!-- 文章网格 -->
@@ -1150,10 +1267,12 @@
                         <span id="modalCategory"></span>
                         <span id="modalDate"></span>
                         <span id="modalReadTime"></span>
+                        <span id="modalDifficulty"></span>
                         <span id="modalViews"></span>
                     </div>
                 </header>
                 <div class="article-body" id="modalBody"></div>
+                <div class="article-tags" id="modalTags" style="margin-bottom: 24px; display: flex; gap: 8px; flex-wrap: wrap;"></div>
                 <div class="article-actions">
                     <button class="action-btn-large" id="likeBtn" onclick="toggleArticleLike()">
                         <span id="likeIcon">🤍</span>
@@ -1176,9 +1295,7 @@
                         <textarea class="comment-textarea" id="commentContent" placeholder="发表你的看法..." maxlength="300"></textarea>
                         <button class="comment-submit" onclick="postComment()">发表评论</button>
                     </div>
-                    <div class="comments-list" id="commentsList">
-                        <!-- 评论动态生成 -->
-                    </div>
+                    <div class="comments-list" id="commentsList"></div>
                 </div>
             </article>
         </div>
@@ -1191,18 +1308,102 @@
     </div>
 
     <script>
-        // 配置
+        // ==================== 配置 ====================
         const OWNER_KEY = 'qn120922';
         const OWNER_NAME = '子秋';
         let isOwner = false;
         let currentArticleId = null;
+        let currentMainFilter = 'all';
+        let currentSubFilter = 'all';
 
-        // 分类映射
-        const categoryMap = {
-            tech: { name: '前端技术', icon: '⚡', color: 'rgba(99, 102, 241, 0.3)' },
-            programming: { name: '编程学习', icon: '🐍', color: 'rgba(236, 72, 153, 0.3)' },
-            project: { name: '项目实战', icon: '🚀', color: 'rgba(245, 158, 11, 0.3)' },
-            life: { name: '生活随笔', icon: '📝', color: 'rgba(34, 197, 94, 0.3)' }
+        // 分类配置
+        const categories = {
+            tech: {
+                name: '技术编程',
+                icon: '💻',
+                color: 'rgba(99, 102, 241, 0.3)',
+                subCategories: {
+                    frontend: '⚡ 前端开发',
+                    backend: '🔧 后端开发',
+                    mobile: '📱 移动开发',
+                    ai: '🤖 AI/机器学习',
+                    database: '🗄️ 数据库',
+                    devops: '🚀 DevOps',
+                    security: '🔒 网络安全',
+                    other: '📦 其他技术'
+                }
+            },
+            study: {
+                name: '学习成长',
+                icon: '📚',
+                color: 'rgba(34, 197, 94, 0.3)',
+                subCategories: {
+                    method: '🎯 学习方法',
+                    experience: '💡 学习心得',
+                    career: '💼 职业规划',
+                    exam: '📝 考试经验',
+                    language: '🌍 语言学习',
+                    other: '📖 其他学习'
+                }
+            },
+            life: {
+                name: '生活随笔',
+                icon: '🌟',
+                color: 'rgba(236, 72, 153, 0.3)',
+                subCategories: {
+                    daily: '📅 日常记录',
+                    travel: '✈️ 旅行见闻',
+                    food: '🍜 美食分享',
+                    hobby: '🎨 兴趣爱好',
+                    mood: '🌈 心情随笔',
+                    other: '📝 其他生活'
+                }
+            },
+            project: {
+                name: '项目实战',
+                icon: '🚀',
+                color: 'rgba(245, 158, 11, 0.3)',
+                subCategories: {
+                    web: '🌐 Web项目',
+                    app: '📲 App项目',
+                    game: '🎮 游戏开发',
+                    tool: '🛠️ 工具开发',
+                    open: '🔓 开源项目',
+                    other: '📦 其他项目'
+                }
+            },
+            resource: {
+                name: '资源分享',
+                icon: '🎁',
+                color: 'rgba(168, 85, 247, 0.3)',
+                subCategories: {
+                    tools: '🔧 开发工具',
+                    books: '📚 书籍推荐',
+                    courses: '🎓 课程推荐',
+                    websites: '🌐 网站推荐',
+                    plugins: '🔌 插件扩展',
+                    other: '📦 其他资源'
+                }
+            },
+            thought: {
+                name: '思考感悟',
+                icon: '💭',
+                color: 'rgba(20, 184, 166, 0.3)',
+                subCategories: {
+                    tech: '💻 技术思考',
+                    life: '🌱 人生感悟',
+                    future: '🔮 未来展望',
+                    review: '📊 年度总结',
+                    other: '🤔 其他思考'
+                }
+            }
+        };
+
+        // 难度映射
+        const difficultyMap = {
+            beginner: { name: '入门', icon: '🌱' },
+            intermediate: { name: '进阶', icon: '🌿' },
+            advanced: { name: '高级', icon: '🌳' }
         };
 
         // 初始化数据
@@ -1213,24 +1414,27 @@
                 {
                     id: 1,
                     title: 'CSS 玻璃拟态效果完全指南',
-                    category: 'tech',
-                    content: '## 什么是玻璃拟态\n\n玻璃拟态（Glassmorphism）是一种现代 UI 设计趋势，主要特点包括：\n\n- **半透明背景**\n- **背景模糊效果**\n- **微妙的边框**\n- **层次感的阴影**\n\n## 核心代码\n\n```css\n.glass {\n    background: rgba(255, 255, 255, 0.1);\n    backdrop-filter: blur(10px);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n}\n```\n\n## 使用场景\n\n玻璃拟态特别适合用于：\n- 导航栏\n- 卡片背景\n- 弹窗遮罩\n- 浮动元素',
+                    mainCategory: 'tech',
+                    subCategory: 'frontend',
+                    difficulty: 'intermediate',
+                    tags: ['CSS', 'UI设计', '前端'],
+                    content: '## 什么是玻璃拟态\n\n玻璃拟态（Glassmorphism）是一种现代 UI 设计趋势...\n\n## 核心代码\n\n```css\n.glass {\n    background: rgba(255, 255, 255, 0.1);\n    backdrop-filter: blur(10px);\n}\n```',
                     excerpt: '深入探讨如何使用 backdrop-filter 和半透明背景创造现代化的 Glassmorphism 设计效果...',
                     date: new Date(Date.now() - 86400000 * 2).toISOString(),
                     readTime: 5,
                     views: 128,
                     likes: 45,
                     isLiked: false,
-                    comments: [
-                        { name: '小明', content: '写得太好了，正好需要这个！', time: new Date(Date.now() - 3600000).toISOString(), isOwner: false },
-                        { name: OWNER_NAME, content: '谢谢支持，有问题随时问我~', time: new Date(Date.now() - 1800000).toISOString(), isOwner: true }
-                    ]
+                    comments: []
                 },
                 {
                     id: 2,
                     title: 'Python 入门：从零开始的学习之路',
-                    category: 'programming',
-                    content: '作为一名六年级学生，我是如何开始学习 Python 编程的？\n\n## 我的学习路径\n\n1. **基础语法** - 变量、数据类型、控制流\n2. **函数与模块** - 代码复用和组织\n3. **面向对象** - 类和对象的概念\n4. **实战项目** - 用所学知识做小游戏\n\n## 推荐资源\n\n- Python 官方文档\n- Codecademy 互动教程\n- 廖雪峰 Python 教程',
+                    mainCategory: 'study',
+                    subCategory: 'method',
+                    difficulty: 'beginner',
+                    tags: ['Python', '编程入门', '学习方法'],
+                    content: '作为一名六年级学生，我是如何开始学习 Python 编程的？\n\n## 我的学习路径\n\n1. **基础语法** - 变量、数据类型\n2. **函数与模块** - 代码复用\n3. **面向对象** - 类和对象',
                     excerpt: '分享我的 Python 学习经历，从入门到实战的完整路径...',
                     date: new Date(Date.now() - 86400000 * 5).toISOString(),
                     readTime: 8,
@@ -1242,8 +1446,11 @@
                 {
                     id: 3,
                     title: '如何搭建一个现代化的个人博客',
-                    category: 'project',
-                    content: '记录子秋博客 3.0 的开发全过程。\n\n## 技术选型\n\n- **前端**: 纯 HTML/CSS/JS，无框架\n- **设计**: Glassmorphism 风格\n- **部署**: GitHub Pages\n\n## 核心功能\n\n1. 响应式布局\n2. 深色主题\n3. 动画效果\n4. 本地数据存储\n\n## 心得体会\n\n自己动手做项目是最好的学习方式！',
+                    mainCategory: 'project',
+                    subCategory: 'web',
+                    difficulty: 'intermediate',
+                    tags: ['博客', 'Web开发', '项目实战'],
+                    content: '记录子秋博客 3.0 的开发全过程。\n\n## 技术选型\n\n- **前端**: 纯 HTML/CSS/JS\n- **设计**: Glassmorphism 风格\n- **部署**: GitHub Pages',
                     excerpt: '从设计思路到技术选型，完整复盘博客项目的开发过程...',
                     date: new Date(Date.now() - 86400000 * 7).toISOString(),
                     readTime: 10,
@@ -1260,18 +1467,31 @@
             localStorage.setItem('blogArticles', JSON.stringify(articles));
         }
 
-        // 导航栏滚动
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        // ==================== 初始化 ====================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            initApp();
         });
 
-        // 移动端菜单
-        document.querySelector('.hamburger').addEventListener('click', () => {
-            document.querySelector('.nav-menu').classList.toggle('active');
-        });
+        function initApp() {
+            // 导航栏
+            window.addEventListener('scroll', () => {
+                document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+            });
 
-        // 博主登录
+            document.querySelector('.hamburger').addEventListener('click', () => {
+                document.querySelector('.nav-menu').classList.toggle('active');
+            });
+
+            // 初始化子分类
+            updateSubCategories();
+            
+            // 渲染文章
+            renderArticles();
+        }
+
+        // ==================== 博主功能 ====================
+        
         function ownerLogin() {
             const key = prompt('请输入博主密钥：');
             if (key === OWNER_KEY) {
@@ -1279,54 +1499,28 @@
                 document.getElementById('loginPrompt').style.display = 'none';
                 document.getElementById('ownerPanel').classList.add('active');
                 showToast('👑 欢迎回来，博主！', 'owner');
-                renderArticles();
             } else {
                 showToast('密钥错误！', 'error');
             }
         }
 
-        // 博主退出
         function ownerLogout() {
             isOwner = false;
             document.getElementById('loginPrompt').style.display = 'block';
             document.getElementById('ownerPanel').classList.remove('active');
             document.getElementById('articleForm').reset();
             showToast('已退出博主模式', 'success');
-            renderArticles();
         }
 
-        // 发布文章
-        function publishArticle(e) {
-            e.preventDefault();
+        // 更新子分类选项
+        function updateSubCategories() {
+            const mainCat = document.getElementById('articleMainCategory').value;
+            const subSelect = document.getElementById('articleSubCategory');
+            const subCats = categories[mainCat].subCategories;
             
-            const title = document.getElementById('articleTitle').value;
-            const category = document.getElementById('articleCategory').value;
-            const readTime = document.getElementById('readTime').value;
-            const content = document.getElementById('articleContent').value;
-            
-            // 生成摘要（前100字）
-            const excerpt = content.replace(/[#*`>\-]/g, '').substring(0, 100) + '...';
-            
-            const newArticle = {
-                id: Date.now(),
-                title,
-                category,
-                content,
-                excerpt,
-                date: new Date().toISOString(),
-                readTime: parseInt(readTime),
-                views: 0,
-                likes: 0,
-                isLiked: false,
-                comments: []
-            };
-            
-            articles.unshift(newArticle);
-            saveArticles();
-            
-            document.getElementById('articleForm').reset();
-            showToast('🎉 文章发布成功！', 'owner');
-            renderArticles();
+            subSelect.innerHTML = Object.entries(subCats).map(([key, name]) => 
+                `<option value="${key}">${name}</option>`
+            ).join('');
         }
 
         // 编辑器工具栏
@@ -1342,28 +1536,137 @@
             textarea.setSelectionRange(start + before.length, end + before.length);
         }
 
-        // 渲染文章列表
-        function renderArticles(filter = 'all') {
+        // 发布文章
+        function publishArticle(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('articleTitle').value;
+            const mainCategory = document.getElementById('articleMainCategory').value;
+            const subCategory = document.getElementById('articleSubCategory').value;
+            const readTime = document.getElementById('readTime').value;
+            const difficulty = document.getElementById('difficulty').value;
+            const tags = document.getElementById('articleTags').value.split(',').map(t => t.trim()).filter(t => t);
+            const content = document.getElementById('articleContent').value;
+            
+            const excerpt = content.replace(/[#*`>\-!\[\]\(\)]/g, '').substring(0, 100) + '...';
+            
+            const newArticle = {
+                id: Date.now(),
+                title,
+                mainCategory,
+                subCategory,
+                difficulty,
+                tags,
+                content,
+                excerpt,
+                date: new Date().toISOString(),
+                readTime: parseInt(readTime),
+                views: 0,
+                likes: 0,
+                isLiked: false,
+                comments: []
+            };
+            
+            articles.unshift(newArticle);
+            saveArticles();
+            
+            document.getElementById('articleForm').reset();
+            updateSubCategories();
+            
+            showToast('🎉 文章发布成功！', 'owner');
+            renderArticles();
+        }
+
+        // ==================== 分类筛选 ====================
+        
+        function filterByMain(mainCat) {
+            currentMainFilter = mainCat;
+            currentSubFilter = 'all';
+            
+            // 更新按钮状态
+            document.querySelectorAll('.main-categories .category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.category-btn').classList.add('active');
+            
+            // 更新子分类显示
+            const subContainer = document.getElementById('subCategories');
+            if (mainCat === 'all') {
+                subContainer.innerHTML = '';
+            } else {
+                const subCats = categories[mainCat].subCategories;
+                subContainer.innerHTML = `
+                    <button class="sub-category-btn active" onclick="filterBySub('all')">全部</button>
+                    ${Object.entries(subCats).map(([key, name]) => 
+                        `<button class="sub-category-btn" onclick="filterBySub('${key}')">${name}</button>`
+                    ).join('')}
+                `;
+            }
+            
+            renderArticles();
+        }
+
+        function filterBySub(subCat) {
+            currentSubFilter = subCat;
+            
+            // 更新按钮状态
+            document.querySelectorAll('.sub-category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            renderArticles();
+        }
+
+        // ==================== 渲染文章 ====================
+        
+        function renderArticles() {
             const grid = document.getElementById('articlesGrid');
-            let displayArticles = filter === 'all' ? articles : articles.filter(a => a.category === filter);
+            
+            let displayArticles = articles;
+            
+            // 主分类筛选
+            if (currentMainFilter !== 'all') {
+                displayArticles = displayArticles.filter(a => a.mainCategory === currentMainFilter);
+            }
+            
+            // 子分类筛选
+            if (currentSubFilter !== 'all') {
+                displayArticles = displayArticles.filter(a => a.subCategory === currentSubFilter);
+            }
+            
+            if (displayArticles.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1; text-align: center; padding: 60px; color: var(--text-secondary);">
+                        <div style="font-size: 4rem; margin-bottom: 16px;">📭</div>
+                        <p>该分类下暂无文章</p>
+                    </div>
+                `;
+                return;
+            }
             
             grid.innerHTML = displayArticles.map(article => {
-                const cat = categoryMap[article.category];
-                const isOwnerArticle = article.comments.some(c => c.isOwner);
+                const cat = categories[article.mainCategory];
+                const subCatName = cat.subCategories[article.subCategory];
+                const diff = difficultyMap[article.difficulty];
                 
                 return `
                     <article class="article-card" onclick="openArticle(${article.id})">
                         <div class="article-cover" style="background: linear-gradient(135deg, ${cat.color}, rgba(168, 85, 247, 0.3));">
                             <span class="cover-icon">${cat.icon}</span>
-                            <span class="article-category">${cat.name}</span>
+                            <span class="article-category">${subCatName}</span>
                         </div>
                         <div class="article-content">
                             <div class="article-meta">
                                 <span class="article-date">${formatDate(article.date)}</span>
-                                <span class="read-time">${article.readTime}分钟阅读</span>
+                                <span class="read-time">${article.readTime}分钟</span>
+                                <span>${diff.icon} ${diff.name}</span>
                             </div>
                             <h2 class="article-title">${escapeHtml(article.title)}</h2>
                             <p class="article-excerpt">${escapeHtml(article.excerpt)}</p>
+                            <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+                                ${article.tags.map(tag => `<span style="padding: 4px 10px; background: rgba(99, 102, 241, 0.15); border-radius: 12px; font-size: 0.75rem; color: #a5b4fc;">${escapeHtml(tag)}</span>`).join('')}
+                            </div>
                             <div class="article-footer">
                                 <div class="article-stats">
                                     <span class="stat-item ${article.isLiked ? 'liked' : ''}">
@@ -1387,31 +1690,33 @@
             }).join('');
         }
 
-        // 筛选文章
-        function filterArticles(category) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            renderArticles(category);
-        }
-
-        // 打开文章详情
+        // ==================== 文章详情 ====================
+        
         function openArticle(id) {
             currentArticleId = id;
             const article = articles.find(a => a.id === id);
             if (!article) return;
             
-            // 增加浏览量
             article.views++;
             saveArticles();
             
-            // 填充内容
+            const cat = categories[article.mainCategory];
+            const subCatName = cat.subCategories[article.subCategory];
+            const diff = difficultyMap[article.difficulty];
+            
             document.getElementById('modalTitle').textContent = article.title;
-            document.getElementById('modalCategory').textContent = categoryMap[article.category].icon + ' ' + categoryMap[article.category].name;
+            document.getElementById('modalCategory').textContent = `${cat.icon} ${cat.name} · ${subCatName}`;
             document.getElementById('modalDate').textContent = '📅 ' + formatDate(article.date);
-            document.getElementById('modalReadTime').textContent = '⏱️ ' + article.readTime + '分钟阅读';
+            document.getElementById('modalReadTime').textContent = '⏱️ ' + article.readTime + '分钟';
+            document.getElementById('modalDifficulty').textContent = `${diff.icon} ${diff.name}`;
             document.getElementById('modalViews').textContent = '👁️ ' + article.views + '次浏览';
             
-            // 渲染 Markdown 内容（简单处理）
+            // 标签
+            document.getElementById('modalTags').innerHTML = article.tags.map(tag => 
+                `<span style="padding: 6px 14px; background: rgba(99, 102, 241, 0.2); border-radius: 20px; font-size: 0.875rem; color: #a5b4fc;">${escapeHtml(tag)}</span>`
+            ).join('');
+            
+            // 内容渲染
             let bodyHtml = escapeHtml(article.content)
                 .replace(/## (.*)/g, '<h2>$1</h2>')
                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -1420,32 +1725,26 @@
                 .replace(/```([\s\S]*?)```/g, '<pre style="background:rgba(0,0,0,0.3);padding:16px;border-radius:8px;overflow-x:auto;"><code>$1</code></pre>')
                 .replace(/- (.*)/g, '<li style="margin-left:20px;">$1</li>')
                 .replace(/> (.*)/g, '<blockquote style="border-left:4px solid var(--primary-color);padding-left:16px;margin:16px 0;color:var(--text-secondary);">$1</blockquote>')
-                .replace(/\n/g, '<p style="margin-bottom:16px;">') + '</p>';
+                .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1" style="max-width:100%;border-radius:8px;margin:16px 0;">')
+                .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" style="color:var(--primary-color);text-decoration:underline;">$1</a>')
+                .replace(/\n/g, '<br>');
             
             document.getElementById('modalBody').innerHTML = bodyHtml;
             
-            // 更新点赞按钮
             updateLikeButton(article);
-            
-            // 显示/隐藏删除按钮
             document.getElementById('modalContent').classList.toggle('owner-view', isOwner);
-            
-            // 渲染评论
             renderComments(article);
             
-            // 显示弹窗
             document.getElementById('articleModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        // 关闭弹窗
         function closeModal() {
             document.getElementById('articleModal').classList.remove('active');
             document.body.style.overflow = '';
             currentArticleId = null;
         }
 
-        // 点赞文章
         function toggleArticleLike() {
             const article = articles.find(a => a.id === currentArticleId);
             if (!article) return;
@@ -1473,7 +1772,6 @@
             count.textContent = article.likes;
         }
 
-        // 删除文章
         function deleteArticle() {
             if (!confirm('确定要删除这篇文章吗？')) return;
             
@@ -1484,7 +1782,6 @@
             showToast('文章已删除', 'success');
         }
 
-        // 分享文章
         function shareArticle() {
             const article = articles.find(a => a.id === currentArticleId);
             const url = window.location.href + '#article=' + article.id;
@@ -1497,10 +1794,10 @@
             }
         }
 
-        // 发表评论
+        // ==================== 评论 ====================
+        
         function postComment() {
             const name = document.getElementById('commentName').value.trim() || '匿名访客';
-            const email = document.getElementById('commentEmail').value.trim();
             const content = document.getElementById('commentContent').value.trim();
             
             if (!content) {
@@ -1511,7 +1808,6 @@
             const article = articles.find(a => a.id === currentArticleId);
             article.comments.push({
                 name: isOwner ? OWNER_NAME : name,
-                email,
                 content,
                 time: new Date().toISOString(),
                 isOwner: isOwner
@@ -1520,17 +1816,14 @@
             saveArticles();
             renderComments(article);
             
-            // 清空表单
             if (!isOwner) {
                 document.getElementById('commentName').value = '';
-                document.getElementById('commentEmail').value = '';
             }
             document.getElementById('commentContent').value = '';
             
             showToast(isOwner ? '博主回复成功！' : '评论发表成功！', isOwner ? 'owner' : 'success');
         }
 
-        // 渲染评论
         function renderComments(article) {
             const list = document.getElementById('commentsList');
             const count = document.getElementById('commentCount');
@@ -1557,7 +1850,8 @@
             `).join('');
         }
 
-        // 工具函数
+        // ==================== 工具函数 ====================
+        
         function escapeHtml(text) {
             const div = document.createElement('div');
             div.textContent = text;
@@ -1593,9 +1887,6 @@
         document.getElementById('articleModal').addEventListener('click', (e) => {
             if (e.target === e.currentTarget) closeModal();
         });
-
-        // 初始化
-        renderArticles();
     </script>
 </body>
 </html>
