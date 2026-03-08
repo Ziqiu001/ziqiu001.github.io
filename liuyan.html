@@ -13,6 +13,8 @@
             --primary-hover: #4f46e5;
             --secondary-color: #ec4899;
             --accent-color: #f59e0b;
+            --owner-color: #fbbf24; /* 博客主专属金色 */
+            --owner-glow: rgba(251, 191, 36, 0.4);
             --bg-dark: #0f172a;
             --bg-light: #1e293b;
             --text-primary: #f8fafc;
@@ -267,6 +269,69 @@
             margin: 0 auto;
         }
 
+        /* 身份切换开关 */
+        .identity-switch {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease-out 0.05s both;
+        }
+
+        .switch-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+        }
+
+        .switch-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            padding: 0 8px;
+        }
+
+        .switch-label.active {
+            color: var(--owner-color);
+            font-weight: 600;
+        }
+
+        .switch-btn {
+            position: relative;
+            width: 56px;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            outline: none;
+        }
+
+        .switch-btn.owner-mode {
+            background: linear-gradient(135deg, var(--owner-color), #f59e0b);
+            box-shadow: 0 0 20px var(--owner-glow);
+        }
+
+        .switch-thumb {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .switch-btn.owner-mode .switch-thumb {
+            transform: translateX(28px);
+        }
+
         /* 输入区域 - 玻璃拟态 */
         .input-section {
             background: rgba(255, 255, 255, 0.05);
@@ -277,6 +342,13 @@
             margin-bottom: 48px;
             animation: fadeInUp 0.8s ease-out 0.1s both;
             box-shadow: var(--glass-shadow);
+            transition: var(--transition);
+        }
+
+        .input-section.owner-mode {
+            border-color: var(--owner-color);
+            box-shadow: 0 0 30px var(--owner-glow), var(--glass-shadow);
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.05), rgba(255, 255, 255, 0.05));
         }
 
         .input-header {
@@ -295,11 +367,38 @@
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .input-section.owner-mode .input-icon {
+            background: linear-gradient(135deg, var(--owner-color), #f59e0b);
+            box-shadow: 0 0 20px var(--owner-glow);
         }
 
         .input-title {
             font-size: 1.25rem;
             font-weight: 600;
+        }
+
+        .owner-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, var(--owner-color), #f59e0b);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #0f172a;
+            font-weight: 700;
+            margin-left: 12px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: var(--transition);
+        }
+
+        .owner-indicator.show {
+            opacity: 1;
+            transform: scale(1);
         }
 
         .input-form {
@@ -351,6 +450,12 @@
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
 
+        .input-section.owner-mode .form-input:focus,
+        .input-section.owner-mode .form-textarea:focus {
+            border-color: var(--owner-color);
+            box-shadow: 0 0 0 3px var(--owner-glow);
+        }
+
         .form-textarea {
             min-height: 120px;
             resize: vertical;
@@ -383,6 +488,16 @@
         .submit-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6);
+        }
+
+        .submit-btn.owner-submit {
+            background: linear-gradient(135deg, var(--owner-color), #f59e0b);
+            box-shadow: 0 4px 15px var(--owner-glow);
+            color: #0f172a;
+        }
+
+        .submit-btn.owner-submit:hover {
+            box-shadow: 0 8px 25px var(--owner-glow);
         }
 
         .submit-btn:active {
@@ -428,7 +543,7 @@
             margin-top: 4px;
         }
 
-        /* 留言墙网格 */
+        /* 留言墙 */
         .wall-section {
             animation: fadeInUp 0.8s ease-out 0.3s both;
         }
@@ -488,6 +603,8 @@
             padding: 24px;
             transition: var(--transition);
             animation: slideIn 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
         }
 
         @keyframes slideIn {
@@ -517,6 +634,29 @@
             50% { box-shadow: 0 0 0 10px rgba(236, 72, 153, 0); }
         }
 
+        /* 博客主专属样式 */
+        .message-card.owner-message {
+            border-color: var(--owner-color);
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(255, 255, 255, 0.05));
+            box-shadow: 0 0 20px var(--owner-glow), 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .message-card.owner-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--owner-color), #f59e0b);
+        }
+
+        .message-card.owner-message:hover {
+            border-color: var(--owner-color);
+            box-shadow: 0 0 30px var(--owner-glow), 0 20px 40px rgba(0, 0, 0, 0.4);
+            transform: translateY(-6px) scale(1.02);
+        }
+
         .message-header {
             display: flex;
             justify-content: space-between;
@@ -541,6 +681,30 @@
             font-weight: 600;
             font-size: 1rem;
             color: white;
+            position: relative;
+        }
+
+        /* 博客主头像特殊样式 */
+        .author-avatar.owner-avatar {
+            background: linear-gradient(135deg, var(--owner-color), #f59e0b);
+            box-shadow: 0 0 15px var(--owner-glow);
+            border: 2px solid var(--owner-color);
+        }
+
+        .author-avatar.owner-avatar::after {
+            content: '👑';
+            position: absolute;
+            bottom: -4px;
+            right: -4px;
+            font-size: 0.75rem;
+            background: var(--owner-color);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--bg-dark);
         }
 
         .author-info {
@@ -551,6 +715,31 @@
         .author-name {
             font-weight: 600;
             color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 博客主名字金色 */
+        .author-name.owner-name {
+            background: linear-gradient(135deg, var(--owner-color), #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .owner-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            background: linear-gradient(135deg, var(--owner-color), #f59e0b);
+            border-radius: 6px;
+            font-size: 0.625rem;
+            color: #0f172a;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .message-time {
@@ -571,6 +760,12 @@
             line-height: 1.8;
             margin-bottom: 16px;
             word-wrap: break-word;
+        }
+
+        /* 博客主留言内容更亮 */
+        .message-card.owner-message .message-content {
+            color: #e2e8f0;
+            font-weight: 500;
         }
 
         .message-footer {
@@ -622,6 +817,38 @@
 
         .empty-text {
             font-size: 1.125rem;
+        }
+
+        /* 图例说明 */
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.visitor {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .legend-dot.owner {
+            background: linear-gradient(135deg, var(--owner-color), #f59e0b);
+            box-shadow: 0 0 10px var(--owner-glow);
         }
 
         /* 响应式 */
@@ -705,6 +932,19 @@
             .guestbook-section {
                 padding-top: 100px;
             }
+
+            .identity-switch {
+                padding: 0 20px;
+            }
+
+            .switch-container {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .legend {
+                gap: 16px;
+            }
         }
 
         /* 滚动条美化 */
@@ -761,6 +1001,12 @@
             border-color: rgba(239, 68, 68, 0.5);
             background: rgba(239, 68, 68, 0.1);
         }
+
+        .toast.owner-toast {
+            border-color: var(--owner-color);
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--owner-color);
+        }
     </style>
 </head>
 <body>
@@ -782,7 +1028,7 @@
             <li><a href="jieshao.html" class="nav-link">介绍</a></li>
             <li><a href="text.html" class="nav-link">文章</a></li>
             <li><a href="vlog.html" class="nav-link">Vlog</a></li>
-            <li><a href="guestbook.html" class="nav-link active">留言</a></li>
+            <li><a href="liuyan.html" class="nav-link active">留言</a></li>
         </ul>
         <div class="hamburger">
             <span class="bar"></span>
@@ -805,11 +1051,25 @@
             </p>
         </header>
 
+        <!-- 身份切换 -->
+        <div class="identity-switch">
+            <div class="switch-container">
+                <span class="switch-label" id="visitorLabel">访客模式</span>
+                <button class="switch-btn" id="identitySwitch" onclick="toggleIdentity()">
+                    <div class="switch-thumb"></div>
+                </button>
+                <span class="switch-label" id="ownerLabel">博主模式</span>
+            </div>
+        </div>
+
         <!-- 输入区域 -->
-        <section class="input-section">
+        <section class="input-section" id="inputSection">
             <div class="input-header">
-                <div class="input-icon">✍️</div>
-                <h2 class="input-title">写下你的留言</h2>
+                <div class="input-icon" id="inputIcon">✍️</div>
+                <h2 class="input-title">
+                    写下你的留言
+                    <span class="owner-indicator" id="ownerIndicator">👑 博主</span>
+                </h2>
             </div>
             <form class="input-form" id="messageForm">
                 <div class="form-row">
@@ -850,6 +1110,18 @@
             </div>
         </div>
 
+        <!-- 图例 -->
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-dot visitor"></div>
+                <span>访客留言</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot owner"></div>
+                <span>博主回复</span>
+            </div>
+        </div>
+
         <!-- 留言墙 -->
         <section class="wall-section">
             <div class="wall-header">
@@ -861,6 +1133,7 @@
                     <button class="filter-btn active" data-filter="all">全部</button>
                     <button class="filter-btn" data-filter="new">最新</button>
                     <button class="filter-btn" data-filter="hot">热门</button>
+                    <button class="filter-btn" data-filter="owner">博主</button>
                 </div>
             </div>
             
@@ -883,6 +1156,12 @@
     </div>
 
     <script>
+        // 全局状态
+        let isOwnerMode = false;
+        const OWNER_NAME = '子秋';
+        const OWNER_AVATAR = '子';
+        const OWNER_KEY = '120922'; // 博主密钥已修改为 120922
+
         // 导航栏滚动效果
         window.addEventListener('scroll', () => {
             const navbar = document.querySelector('.navbar');
@@ -902,10 +1181,63 @@
             navMenu.classList.toggle('active');
         });
 
-        // 留言数据存储（使用 localStorage 持久化）
+        // 身份切换
+        function toggleIdentity() {
+            const switchBtn = document.getElementById('identitySwitch');
+            const visitorLabel = document.getElementById('visitorLabel');
+            const ownerLabel = document.getElementById('ownerLabel');
+            const inputSection = document.getElementById('inputSection');
+            const inputIcon = document.getElementById('inputIcon');
+            const ownerIndicator = document.getElementById('ownerIndicator');
+            const submitBtn = document.getElementById('submitBtn');
+            const nickname = document.getElementById('nickname');
+
+            isOwnerMode = !isOwnerMode;
+
+            if (isOwnerMode) {
+                // 验证博主身份
+                const key = prompt('请输入博主密钥：');
+                if (key !== OWNER_KEY) {
+                    alert('密钥错误！');
+                    isOwnerMode = false;
+                    return;
+                }
+
+                switchBtn.classList.add('owner-mode');
+                visitorLabel.classList.remove('active');
+                ownerLabel.classList.add('active');
+                inputSection.classList.add('owner-mode');
+                ownerIndicator.classList.add('show');
+                submitBtn.classList.add('owner-submit');
+                
+                // 自动填充博主信息
+                nickname.value = OWNER_NAME;
+                nickname.readOnly = true;
+                
+                showToast('已切换到博主模式', 'owner-toast');
+            } else {
+                switchBtn.classList.remove('owner-mode');
+                visitorLabel.classList.add('active');
+                ownerLabel.classList.remove('active');
+                inputSection.classList.remove('owner-mode');
+                ownerIndicator.classList.remove('show');
+                submitBtn.classList.remove('owner-submit');
+                
+                // 清空信息
+                nickname.value = '';
+                nickname.readOnly = false;
+                
+                showToast('已切换到访客模式', 'success');
+            }
+        }
+
+        // 默认访客模式标签激活
+        document.getElementById('visitorLabel').classList.add('active');
+
+        // 留言数据存储
         let messages = JSON.parse(localStorage.getItem('guestbookMessages')) || [];
 
-        // 初始示例数据（如果本地没有数据）
+        // 初始示例数据
         if (messages.length === 0) {
             messages = [
                 {
@@ -916,33 +1248,57 @@
                     time: new Date(Date.now() - 86400000 * 2).toISOString(),
                     likes: 12,
                     isLiked: false,
-                    isNew: false
+                    isNew: false,
+                    isOwner: false
                 },
                 {
                     id: 2,
+                    nickname: OWNER_NAME,
+                    avatar: OWNER_AVATAR,
+                    content: '谢谢小明的喜欢！玻璃拟态效果其实很简单，主要是用 backdrop-filter: blur() 和半透明背景。',
+                    time: new Date(Date.now() - 86400000 * 2 + 3600000).toISOString(),
+                    likes: 28,
+                    isLiked: false,
+                    isNew: false,
+                    isOwner: true
+                },
+                {
+                    id: 3,
                     nickname: '前端爱好者',
                     avatar: '前',
                     content: '七年级就能做出这么棒的网站，太厉害了！继续加油，未来可期！💪',
                     time: new Date(Date.now() - 86400000).toISOString(),
                     likes: 8,
                     isLiked: false,
-                    isNew: false
+                    isNew: false,
+                    isOwner: false
                 },
                 {
-                    id: 3,
+                    id: 4,
+                    nickname: OWNER_NAME,
+                    avatar: OWNER_AVATAR,
+                    content: '感谢支持！我会继续努力学习的，也欢迎大家多提建议，一起进步！🚀',
+                    time: new Date(Date.now() - 86400000 + 1800000).toISOString(),
+                    likes: 15,
+                    isLiked: false,
+                    isNew: false,
+                    isOwner: true
+                },
+                {
+                    id: 5,
                     nickname: '路过的大佬',
                     avatar: '路',
                     content: '代码结构很清晰，动画效果也很流畅。建议可以加上暗黑模式切换功能，会更酷！',
                     time: new Date(Date.now() - 3600000 * 5).toISOString(),
                     likes: 5,
                     isLiked: false,
-                    isNew: false
+                    isNew: false,
+                    isOwner: false
                 }
             ];
             saveMessages();
         }
 
-        // 保存到本地存储
         function saveMessages() {
             localStorage.setItem('guestbookMessages', JSON.stringify(messages));
         }
@@ -957,7 +1313,6 @@
 
         // 提交表单
         const form = document.getElementById('messageForm');
-        const submitBtn = document.getElementById('submitBtn');
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -981,7 +1336,8 @@
                 time: new Date().toISOString(),
                 likes: 0,
                 isLiked: false,
-                isNew: true
+                isNew: true,
+                isOwner: isOwnerMode // 标记是否为博主
             };
 
             // 添加到数组开头
@@ -989,11 +1345,21 @@
             saveMessages();
 
             // 重置表单
-            form.reset();
+            if (!isOwnerMode) {
+                form.reset();
+            } else {
+                document.getElementById('message').value = '';
+                document.getElementById('charCount').textContent = '0';
+            }
+            
             charCount.textContent = '0';
 
             // 显示成功提示
-            showToast('留言发布成功！', 'success');
+            if (isOwnerMode) {
+                showToast('博主回复已发布！', 'owner-toast');
+            } else {
+                showToast('留言发布成功！', 'success');
+            }
 
             // 重新渲染
             renderMessages();
@@ -1012,12 +1378,15 @@
             const wall = document.getElementById('messageWall');
             const emptyState = document.getElementById('emptyState');
 
-            // 排序
+            // 筛选
             let displayMessages = [...messages];
+            
             if (filter === 'new') {
                 displayMessages.sort((a, b) => new Date(b.time) - new Date(a.time));
             } else if (filter === 'hot') {
                 displayMessages.sort((a, b) => b.likes - a.likes);
+            } else if (filter === 'owner') {
+                displayMessages = displayMessages.filter(m => m.isOwner);
             }
 
             if (displayMessages.length === 0) {
@@ -1028,34 +1397,48 @@
 
             emptyState.style.display = 'none';
             
-            wall.innerHTML = displayMessages.map(msg => `
-                <div class="message-card ${msg.isNew ? 'new' : ''}" data-id="${msg.id}">
-                    <div class="message-header">
-                        <div class="message-author">
-                            <div class="author-avatar">${msg.avatar}</div>
-                            <div class="author-info">
-                                <span class="author-name">${escapeHtml(msg.nickname)}</span>
-                                <span class="message-time">${formatTime(msg.time)}</span>
+            wall.innerHTML = displayMessages.map(msg => {
+                const isOwner = msg.isOwner;
+                const cardClass = isOwner ? 'owner-message' : '';
+                const avatarClass = isOwner ? 'owner-avatar' : '';
+                const nameClass = isOwner ? 'owner-name' : '';
+                const badgeHtml = isOwner ? '<span class="owner-badge">👑 博主</span>' : '';
+                const newBadge = msg.isNew ? '<span class="message-badge">NEW</span>' : '';
+
+                return `
+                    <div class="message-card ${cardClass} ${msg.isNew ? 'new' : ''}" data-id="${msg.id}">
+                        <div class="message-header">
+                            <div class="message-author">
+                                <div class="author-avatar ${avatarClass}">${msg.avatar}</div>
+                                <div class="author-info">
+                                    <span class="author-name ${nameClass}">
+                                        ${escapeHtml(msg.nickname)}
+                                        ${badgeHtml}
+                                    </span>
+                                    <span class="message-time">${formatTime(msg.time)}</span>
+                                </div>
                             </div>
+                            ${newBadge}
                         </div>
-                        ${msg.isNew ? '<span class="message-badge">NEW</span>' : ''}
+                        <div class="message-content">${escapeHtml(msg.content)}</div>
+                        <div class="message-footer">
+                            <button class="action-btn ${msg.isLiked ? 'liked' : ''}" onclick="toggleLike(${msg.id})">
+                                <span>${msg.isLiked ? '❤️' : '🤍'}</span>
+                                <span>${msg.likes}</span>
+                            </button>
+                            ${!isOwner ? `
+                            <button class="action-btn" onclick="replyMessage('${escapeHtml(msg.nickname)}')">
+                                <span>💬</span>
+                                <span>回复</span>
+                            </button>
+                            ` : ''}
+                        </div>
                     </div>
-                    <div class="message-content">${escapeHtml(msg.content)}</div>
-                    <div class="message-footer">
-                        <button class="action-btn ${msg.isLiked ? 'liked' : ''}" onclick="toggleLike(${msg.id})">
-                            <span>${msg.isLiked ? '❤️' : '🤍'}</span>
-                            <span>${msg.likes}</span>
-                        </button>
-                        <button class="action-btn" onclick="replyMessage('${escapeHtml(msg.nickname)}')">
-                            <span>💬</span>
-                            <span>回复</span>
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        // 转义 HTML 防止 XSS
+        // 转义 HTML
         function escapeHtml(text) {
             const div = document.createElement('div');
             div.textContent = text;
@@ -1068,16 +1451,13 @@
             const now = new Date();
             const diff = now - date;
             
-            // 小于1小时
             if (diff < 3600000) {
                 const minutes = Math.floor(diff / 60000);
                 return minutes < 1 ? '刚刚' : `${minutes}分钟前`;
             }
-            // 小于24小时
             if (diff < 86400000) {
                 return `${Math.floor(diff / 3600000)}小时前`;
             }
-            // 小于7天
             if (diff < 604800000) {
                 return `${Math.floor(diff / 86400000)}天前`;
             }
@@ -1085,7 +1465,7 @@
             return date.toLocaleDateString('zh-CN');
         }
 
-        // 点赞功能
+        // 点赞
         function toggleLike(id) {
             const msg = messages.find(m => m.id === id);
             if (msg) {
@@ -1102,12 +1482,11 @@
             }
         }
 
-        // 回复功能
+        // 回复
         function replyMessage(nickname) {
             const messageInput = document.getElementById('message');
             messageInput.value = `@${nickname} `;
             messageInput.focus();
-            // 滚动到输入框
             document.querySelector('.input-section').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -1123,7 +1502,7 @@
             document.getElementById('likeCount').textContent = totalLikes;
         }
 
-        // 筛选功能
+        // 筛选
         const filterBtns = document.querySelectorAll('.filter-btn');
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1133,16 +1512,21 @@
             });
         });
 
-        // 显示提示
+        // 提示
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
             const icon = document.getElementById('toastIcon');
             const msg = document.getElementById('toastMessage');
             
             toast.className = `toast ${type}`;
-            icon.textContent = type === 'success' ? '✅' : '❌';
-            msg.textContent = message;
             
+            if (type === 'owner-toast') {
+                icon.textContent = '👑';
+            } else {
+                icon.textContent = type === 'success' ? '✅' : '❌';
+            }
+            
+            msg.textContent = message;
             toast.classList.add('show');
             
             setTimeout(() => {
