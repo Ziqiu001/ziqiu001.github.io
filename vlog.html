@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vlog | 子秋博客</title>
+    <link rel="stylesheet" href="./css/ziqiu.css">
+    <link rel="stylesheet" href="./css/vlog.css">
+    <link rel="shortcut icon" href="./images/ZiQiu.jpg" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 动态背景 -->
+    <div class="gradient-bg">
+        <div class="gradient-sphere sphere-1"></div>
+        <div class="gradient-sphere sphere-2"></div>
+        <div class="gradient-sphere sphere-3"></div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <img src="images/ZiQiu.jpg" alt="子秋" class="brand-logo">
+            <span class="brand-text">子秋博客</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">首页</a></li>
+            <li><a href="jieshao.html" class="nav-link">介绍</a></li>
+            <li><a href="text.html" class="nav-link">文章</a></li>
+            <li><a href="vlog.html" class="nav-link active">Vlog</a></li>
+            <li><a href="#talk" class="nav-link">留言</a></li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+
+    <!-- Vlog 内容 -->
+    <main class="vlog-section">
+        <div class="vlog-header">
+            <h1 class="vlog-title">
+                <span class="gradient-text">视频</span>日志
+            </h1>
+            <p class="vlog-subtitle">记录生活点滴，分享精彩瞬间</p>
+        </div>
+
+        <div class="video-grid">
+            <!-- 主视频 -->
+            <div class="video-card main-video">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="//player.bilibili.com/player.html?bvid=BV1NBuvz2EsS&page=1" 
+                        allowfullscreen="allowfullscreen" 
+                        width="100%" 
+                        height="100%" 
+                        scrolling="no" 
+                        frameborder="0"
+                        sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts">
+                    </iframe>
+                </div>
+                <div class="video-info">
+                    <h3>最新视频</h3>
+                    <p>点击播放观看最新内容</p>
+                </div>
+            </div>
+
+            <!-- 占位视频卡片 -->
+            <div class="video-card placeholder">
+                <div class="video-placeholder">
+                    <div class="placeholder-icon">🎬</div>
+                    <p>更多精彩视频</p>
+                    <span>即将上线</span>
+                </div>
+            </div>
+            
+            <div class="video-card placeholder">
+                <div class="video-placeholder">
+                    <div class="placeholder-icon">✨</div>
+                    <p>制作中</p>
+                    <span>敬请期待</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 频道信息 -->
+        <div class="channel-info glass-card">
+            <div class="channel-header">
+                <img src="./images/ZiQiu.jpg" alt="频道头像" class="channel-avatar">
+                <div class="channel-meta">
+                    <h3>子秋的B站频道</h3>
+                    <p>分享科技、学习与生活的点滴</p>
+                </div>
+            </div>
+            <a href="https://space.bilibili.com" target="_blank" class="btn btn-primary">
+                <span>访问频道</span>
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                </svg>
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // 导航栏效果
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 移动端菜单
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

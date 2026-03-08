@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>子秋博客 | ZiQiu Blog</title>
+    <link rel="stylesheet" href="./css/ziqiu.css">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="shortcut icon" href="images/ZiQiu.jpg" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 动态背景 -->
+    <div class="gradient-bg">
+        <div class="gradient-sphere sphere-1"></div>
+        <div class="gradient-sphere sphere-2"></div>
+        <div class="gradient-sphere sphere-3"></div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <img src="images/ZiQiu.jpg" alt="子秋" class="brand-logo">
+            <span class="brand-text">子秋博客</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#home" class="nav-link active">首页</a></li>
+            <li><a href="jieshao.html" class="nav-link">介绍</a></li>
+            <li><a href="text.html" class="nav-link">文章</a></li>
+            <li><a href="vlog.html" class="nav-link">Vlog</a></li>
+            <li><a href="#talk" class="nav-link">留言</a></li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">✨ 全新 3.0 版本</div>
+            <h1 class="hero-title">
+                <span class="gradient-text">探索科技</span>
+                <br>分享成长
+            </h1>
+            <p class="hero-subtitle">
+                这里是子秋的个人博客，记录学习历程、技术心得与生活点滴。
+                <br>用代码编织梦想，用文字记录时光。
+            </p>
+            <div class="hero-buttons">
+                <a href="text.html" class="btn btn-primary">
+                    <span>浏览文章</span>
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="jieshao.html" class="btn btn-secondary">了解更多</a>
+            </div>
+        </div>
+        
+        <!-- 装饰卡片 -->
+        <div class="floating-cards">
+            <div class="float-card card-1">
+                <div class="card-icon">🚀</div>
+                <div class="card-text">技术分享</div>
+            </div>
+            <div class="float-card card-2">
+                <div class="card-icon">💡</div>
+                <div class="card-text">学习笔记</div>
+            </div>
+            <div class="float-card card-3">
+                <div class="card-icon">🎥</div>
+                <div class="card-text">视频日志</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 特色功能 -->
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">📚</div>
+            <h3>技术文章</h3>
+            <p>分享编程学习心得与技术干货</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🎬</div>
+            <h3>视频创作</h3>
+            <p>用Vlog记录生活与成长瞬间</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">💬</div>
+            <h3>互动交流</h3>
+            <p>欢迎留下你的想法与建议</p>
+        </div>
+    </section>
+
+    <!-- 公告弹窗 -->
+    <div id="myModal" class="modal">
+        <div class="modal-content glass">
+            <button class="close-btn">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon">🎉</div>
+                <h2>子秋博客 3.0 发布</h2>
+            </div>
+            <div class="modal-body">
+                <p class="modal-date">2025年4月12日</p>
+                <p>欢迎来到全新升级的子秋博客！</p>
+                <ul class="feature-list">
+                    <li>✨ 全新玻璃拟态设计风格</li>
+                    <li>🎨 动态渐变背景效果</li>
+                    <li>⚡ 更流畅的交互体验</li>
+                    <li>📱 完美适配移动设备</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal()">开始使用</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 移动端菜单切换
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // 弹窗控制
+        const modal = document.getElementById("myModal");
+        const closeBtn = document.querySelector(".close-btn");
+        
+        window.onload = function() {
+            setTimeout(() => {
+                modal.classList.add('show');
+            }, 500);
+        };
+
+        function closeModal() {
+            modal.classList.remove('show');
+        }
+
+        closeBtn.onclick = closeModal;
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        };
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
